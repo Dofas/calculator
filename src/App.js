@@ -152,7 +152,7 @@ function App() {
           <button onClick={handleOperation} value='+'>+</button>
         </div>
         <div className="buttons-row">
-          <button onClick={handleZero} value ='0'>0</button>
+          <button className='nullButton' onClick={handleZero} value ='0'>0</button>
           <button onClick={handleDot} value='.'>.</button>
           <button onClick={handleEqual}>=</button>
         </div>
