@@ -1,111 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  const [operation, setOperation] = useState('');
+  const [prevNumber, setPrevNumber] = useState('');
+  const [prevNumber2, setPrevNumber2] = useState('');
+  const [result, setResult] = useState('');
 
-  const handleNumber = (e) => {
-    setInputValue(e.target.value);
-  };
+  const handleInputValue = (e) =>{
+    setInputValue(prev => prev + e.target.value);
+  }
 
-  // console.log(parseFloat(inputValue))
+  const handleOperation = (e) =>{
+    setOperation(e.target.value);
+    if (prevNumber === '') {
+      setPrevNumber(inputValue);
+      
+    } else {
+      setPrevNumber2(inputValue)
+  
+    }
+    setInputValue('');
+  }
+
+  useEffect(() =>{
+    let nosense=0;
+      if (prevNumber2 !==''){
+        if (operation === '+'){
+          nosense = parseFloat(prevNumber) + parseFloat(prevNumber2);
+        }
+        if (operation === '-'){
+          nosense = parseFloat(prevNumber) - parseFloat(prevNumber2);
+        }
+        if (operation === '*'){
+          nosense = parseFloat(prevNumber) * parseFloat(prevNumber2);
+        }
+        if (operation === '/'){
+          nosense = parseFloat(prevNumber) / parseFloat(prevNumber2);
+        }
+        setInputValue(nosense.toString());
+        setPrevNumber('');
+        setPrevNumber2('');
+      }
+  },[prevNumber2])
+ 
   return (
     <div className="App">
-      <input
-        className="numbers"
-        type="text"
-        onChange={handleNumber}
-        value={inputValue}
-      />
+      <input className="numbers" type="text" readOnly value={inputValue}/>
       <div className="buttons">
         <div className="buttons-row">
-          <button onClick ={() => {setInputValue("")}}>A/C</button>
+          <button>A/C</button>
           <button>+/-</button>
           <button>%</button>
-          <button>/</button>
+          <button onClick={handleOperation} value='/'>/</button>
         </div>
         <div className="buttons-row">
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("7"));
-            }}
-          >
-            7
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("8"));
-            }}
-          >
-            8
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("9"));
-            }}
-          >
-            9
-          </button>
-          <button>*</button>
+          <button onClick={handleInputValue} value='7'>7</button>
+          <button onClick={handleInputValue} value='8'>8</button>
+          <button onClick={handleInputValue} value='9'>9</button>
+          <button onClick={handleOperation} value='*'>*</button>
         </div>
         <div className="buttons-row">
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("4"));
-            }}
-          >
-            4
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("5"));
-            }}
-          >
-            5
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("6"));
-            }}
-          >
-            6
-          </button>
-          <button>-</button>
+          <button onClick={handleInputValue} value='4'>4</button>
+          <button onClick={handleInputValue} value='5'>5</button>
+          <button onClick={handleInputValue} value='6'>6</button>
+          <button onClick={handleOperation} value='-'>-</button>
         </div>
         <div className="buttons-row">
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("1"));
-            }}
-          >
-            1
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("2"));
-            }}
-          >
-            2
-          </button>
-          <button
-            onClick={() => {
-              setInputValue(inputValue.concat("3"));
-            }}
-          >
-            3
-          </button>
-          <button>+</button>
+          <button onClick={handleInputValue} value='1'>1</button>
+          <button onClick={handleInputValue} value='2'>2</button>
+          <button onClick={handleInputValue} value='3'>3</button>
+          <button onClick={handleOperation} value='+'>+</button>
         </div>
         <div className="buttons-row">
-          <button
-            className="nullButton"
-            onClick={() => {
-              setInputValue(inputValue.concat("0"));
-            }}
-          >
-            0
-          </button>
-          <button onClick={ () => {setInputValue(inputValue.concat('.'))}}>.</button>
+          <button>0</button>
+          <button>.</button>
           <button>=</button>
         </div>
       </div>
