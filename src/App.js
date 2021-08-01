@@ -6,10 +6,17 @@ function App() {
   const [operation, setOperation] = useState('');
   const [prevNumber, setPrevNumber] = useState('');
   const [prevNumber2, setPrevNumber2] = useState('');
+  const [isEqual, setIsEqual] = useState(false)
   const [result, setResult] = useState('');
 
   const handleInputValue = (e) =>{
     setInputValue(prev => prev + e.target.value);
+  }
+
+  const handleZero = (e) =>{
+    if (inputValue !== ''){
+      setInputValue(prev => prev + e.target.value)
+    }
   }
 
   const handleOperation = (e) =>{
@@ -24,26 +31,67 @@ function App() {
     setInputValue('');
   }
 
+  const handleEqual = () =>{
+    setPrevNumber2(inputValue);
+    setIsEqual(true)
+  }
+  console.log(isEqual)
+
   useEffect(() =>{
     let nosense=0;
       if (prevNumber2 !==''){
         if (operation === '+'){
           nosense = parseFloat(prevNumber) + parseFloat(prevNumber2);
+          if (isEqual){
+            setInputValue(nosense.toString());
+            setPrevNumber('');
+            setPrevNumber2('');
+          }else{
+            setInputValue('');
+            setPrevNumber(nosense.toString());
+            setPrevNumber2('');
+          }
         }
         if (operation === '-'){
           nosense = parseFloat(prevNumber) - parseFloat(prevNumber2);
+          if (isEqual){
+            setInputValue(nosense.toString());
+            setPrevNumber('');
+            setPrevNumber2('');
+          }else{
+            setInputValue('');
+            setPrevNumber(nosense.toString());
+            setPrevNumber2('');
+          }
         }
         if (operation === '*'){
           nosense = parseFloat(prevNumber) * parseFloat(prevNumber2);
+          if (isEqual){
+            setInputValue(nosense.toString());
+            setPrevNumber('');
+            setPrevNumber2('');
+          }else{
+            setInputValue('');
+            setPrevNumber(nosense.toString());
+            setPrevNumber2('');
+          }
         }
         if (operation === '/'){
           nosense = parseFloat(prevNumber) / parseFloat(prevNumber2);
+          if (isEqual){
+            setInputValue(nosense.toString());
+            setPrevNumber('');
+            setPrevNumber2('');
+          }else{
+            setInputValue('');
+            setPrevNumber(nosense.toString());
+            setPrevNumber2('');
+          }
         }
-        setInputValue(nosense.toString());
-        setPrevNumber('');
-        setPrevNumber2('');
+        setIsEqual(false)
       }
   },[prevNumber2])
+  console.log('2 :', prevNumber)
  
   return (
     <div className="App">
@@ -74,9 +122,9 @@ function App() {
           <button onClick={handleOperation} value='+'>+</button>
         </div>
         <div className="buttons-row">
-          <button>0</button>
+          <button onClick={handleZero} value ='0'>0</button>
           <button>.</button>
-          <button>=</button>
+          <button onClick={handleEqual}>=</button>
         </div>
       </div>
     </div>
