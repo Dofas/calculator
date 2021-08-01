@@ -31,6 +31,12 @@ function App() {
     setInputValue('');
   }
 
+  const handleDot = (e) =>{
+    if (inputValue !== ''){
+      setInputValue(prev => prev + e.target.value)
+    }
+  }
+
   const handleEqual = () =>{
     setPrevNumber2(inputValue);
     setIsEqual(true)
@@ -123,7 +129,7 @@ function App() {
         </div>
         <div className="buttons-row">
           <button onClick={handleZero} value ='0'>0</button>
-          <button>.</button>
+          <button onClick={handleDot} value='.'>.</button>
           <button onClick={handleEqual}>=</button>
         </div>
       </div>
