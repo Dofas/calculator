@@ -16,6 +16,13 @@ function App() {
     setIsEqual(false);
   }
 
+  const handleSign = (e) =>{
+    if (e.target.value){
+      const sign = parseFloat(inputValue) * (-1)
+      setInputValue(sign.toString())
+    }
+  }
+
   const handleInputValue = (e) =>{
     setInputValue(prev => prev + e.target.value);
   }
@@ -48,13 +55,24 @@ function App() {
     setPrevNumber2(inputValue);
     setIsEqual(true)
   }
-  console.log(isEqual)
 
   useEffect(() =>{
     let nosense=0;
       if (prevNumber2 !==''){
         if (operation === '+'){
           nosense = parseFloat(prevNumber) + parseFloat(prevNumber2);
+          if (isEqual){
+            setInputValue(nosense.toString());
+            setPrevNumber('');
+            setPrevNumber2('');
+          }else{
+            setInputValue('');
+            setPrevNumber(nosense.toString());
+            setPrevNumber2('');
+          }
+        }
+        if (operation === '%'){
+          nosense = parseFloat(prevNumber) % parseFloat(prevNumber2);
           if (isEqual){
             setInputValue(nosense.toString());
             setPrevNumber('');
@@ -104,7 +122,6 @@ function App() {
         setIsEqual(false)
       }
   },[prevNumber2])
-  console.log('2 :', prevNumber)
  
   return (
     <div className="App">
@@ -112,8 +129,8 @@ function App() {
       <div className="buttons">
         <div className="buttons-row">
           <button onClick={handleClear}>A/C</button>
-          <button>+/-</button>
-          <button>%</button>
+          <button onClick={handleSign} value={inputValue}>+/-</button>
+          <button onClick={handleOperation} value='%'>%</button>
           <button onClick={handleOperation} value='/'>/</button>
         </div>
         <div className="buttons-row">
