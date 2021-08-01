@@ -7,7 +7,14 @@ function App() {
   const [prevNumber, setPrevNumber] = useState('');
   const [prevNumber2, setPrevNumber2] = useState('');
   const [isEqual, setIsEqual] = useState(false)
-  const [result, setResult] = useState('');
+
+  const handleClear = ()=>{
+    setInputValue('');
+    setOperation('');
+    setPrevNumber('');
+    setPrevNumber2('');
+    setIsEqual(false);
+  }
 
   const handleInputValue = (e) =>{
     setInputValue(prev => prev + e.target.value);
@@ -104,7 +111,7 @@ function App() {
       <input className="numbers" type="text" readOnly value={inputValue}/>
       <div className="buttons">
         <div className="buttons-row">
-          <button>A/C</button>
+          <button onClick={handleClear}>A/C</button>
           <button>+/-</button>
           <button>%</button>
           <button onClick={handleOperation} value='/'>/</button>
