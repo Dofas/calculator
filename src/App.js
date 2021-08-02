@@ -28,9 +28,10 @@ function App() {
   }
 
   const handleZero = (e) =>{
-    if (inputValue !== ''){
-      setInputValue(prev => prev + e.target.value)
-    }
+    // if (inputValue !== ''){
+    //   setInputValue(prev => prev + e.target.value)
+    // }
+    setInputValue(prev => prev + e.target.value)
   }
 
   const handleOperation = (e) =>{
